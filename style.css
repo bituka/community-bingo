@@ -206,7 +206,7 @@ h3, h1 {
 .callout {
   font-family: "Space Mono", monospace;
   font-weight: 700;
-  font-size: clamp(1.4rem, 3.5vmin, 3rem);
+  font-size: clamp(0.9rem, 2vmin, 1.4rem);
   letter-spacing: 0.05em;
   color: var(--amber);
   min-height: 1.2em;
