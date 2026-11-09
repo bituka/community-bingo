@@ -13,10 +13,8 @@
   var callout = document.getElementById("callout");
   var resetBtn = document.getElementById("resetBtn");
   var historyEl = document.getElementById("history");
-  var boardEl = document.getElementById("board");
   var drawCount = document.getElementById("drawCount");
   var statusMsg = document.getElementById("statusMsg");
-  var ballTray = document.getElementById("ballTray");
 
   function letterFor(n) {
     return LETTERS[Math.floor((n - 1) / PER_ROW)];
@@ -29,23 +27,6 @@
     if (n >= 46 && n <= 60) return "G";
     if (n >= 61 && n <= 75) return "O";
     return "";
-  }
-
-  function buildBoard() {
-    boardEl.innerHTML = "";
-    for (var n = 1; n <= TOTAL; n++) {
-      var cell = document.createElement("div");
-      cell.className = "cell";
-      cell.textContent = n;
-      cell.dataset.n = n;
-      cell.setAttribute("aria-label", letterFor(n) + "-" + n);
-      boardEl.appendChild(cell);
-    }
-  }
-
-  function markBoard(n, on) {
-    var cell = boardEl.querySelector('[data-n="' + n + ""]');
-    if (cell) cell.classList.toggle("hit", on);
   }
 
   function addCalledBall(n) {
@@ -64,9 +45,6 @@
     ball.classList.add("pop");
 
     callout.textContent = letter + " \u2013 " + n + "!";
-
-    // Mark board
-    markBoard(n, true);
 
     // Add to history
     var li = document.createElement("li");
@@ -87,7 +65,6 @@
     if (called.length >= TOTAL) {
       callout.textContent = "All balls called — full house!";
       statusMsg.textContent = "Game complete";
-      stopAuto();
     }
   }
 
@@ -98,12 +75,6 @@
     } else if (!called.length) {
       statusMsg.textContent = "Enter a ball number (1-75)";
     }
-  }
-
-  // No auto-call functionality - manual selection only
-
-  function stopAuto() {
-    // autoBtn is no longer in the DOM
   }
 
   // Manual add ball from input field
@@ -158,7 +129,6 @@
   }
 
   function newGame() {
-    stopAuto();
     called = [];
     historyEl.innerHTML = "";
     ball.className = "ball empty";
@@ -167,18 +137,11 @@
     ball.querySelector(".ball-number").textContent = "—";
     callout.textContent = "Enter a ball number (1-75) to start";
     updateLedger();
-    markAllOff();
   }
 
-  function markAllOff() {
-    boardEl.querySelectorAll(".cell.hit").forEach(function (c) {
-      c.classList.remove("hit");
-      c.style.transform = "";
-    });
-  }
+  resetBtn.addEventListener("click", newGame);
 
   // Initialize
-  buildBoard();
   newGame();
 
   // Add manual input UI
@@ -208,13 +171,4 @@
   }
 
   initManualUI();
-
-  // Remove draw button styling - no longer needed
-  // (draw button is gone from HTML)
-
-  // History strip animation support
-  var historyStrip = document.querySelector(".history-strip");
-  if (historyStrip) {
-    historyStrip.style.minHeight = "3rem";
-  }
 })();
