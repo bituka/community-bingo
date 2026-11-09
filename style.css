@@ -281,39 +281,62 @@ h3, h1 {
   margin-bottom: 0.7rem;
 }
 
-.history-strip {
-  list-style: none;
-  display: flex;
-  gap: clamp(0.6rem, 1.2vmin, 1.4rem);
-  flex-wrap: wrap;
-  justify-content: center;
-  min-height: 4rem;
+.history-groups {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.5rem, 1.2vmin, 1.2rem);
 }
 
-.history-strip li {
-  width: clamp(4rem, 9vmin, 9rem);
-  height: clamp(4.2rem, 9.5vmin, 9.5rem);
-  border-radius: 50% 50% 50% 50% / 46% 46% 54% 54%;
-  background: var(--ball-face);
-  color: var(--ink);
+@media (max-width: 700px) {
+  .history-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hist-group[data-letter="O"] { grid-column: 1 / -1; }
+}
+
+.hist-group {
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(244, 236, 216, 0.12);
+  border-radius: 14px;
+  padding: clamp(0.6rem, 1.2vmin, 1.2rem);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-family: "Space Mono", monospace;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
-  animation: popSmall 0.35s cubic-bezier(0.22, 1.2, 0.35, 1) both;
+  gap: 0.5rem;
 }
 
-.history-strip li small {
-  font-size: clamp(0.85rem, 2vmin, 1.8rem);
-  font-weight: 700;
+.hist-letter {
+  font-family: "Bungee", sans-serif;
+  font-size: clamp(1.1rem, 2.6vmin, 2.2rem);
   line-height: 1;
 }
 
-.history-strip li strong {
-  font-size: clamp(1.3rem, 3.2vmin, 3rem);
-  line-height: 1.1;
+/* letter colors matching the ranges */
+.hist-group[data-letter="B"] .hist-letter { color: #7fa8d4; }
+.hist-group[data-letter="I"] .hist-letter { color: #e07b70; }
+.hist-group[data-letter="N"] .hist-letter { color: #7cc49a; }
+.hist-group[data-letter="G"] .hist-letter { color: #b693cc; }
+.hist-group[data-letter="O"] .hist-letter { color: #e3a85a; }
+
+.hist-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(0.25rem, 0.6vmin, 0.6rem);
+  min-height: 2.4rem;
+  align-content: flex-start;
+}
+
+.hist-list li {
+  padding: clamp(0.15rem, 0.5vmin, 0.5rem) clamp(0.4rem, 0.9vmin, 0.9rem);
+  border-radius: 999px;
+  background: var(--ball-face);
+  color: #14532d;
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  font-size: clamp(0.9rem, 2.2vmin, 2rem);
+  line-height: 1.4;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+  animation: popSmall 0.35s cubic-bezier(0.22, 1.2, 0.35, 1) both;
 }
 
 @keyframes popSmall {

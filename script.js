@@ -46,17 +46,15 @@
 
     callout.textContent = letter + " \u2013 " + n + "!";
 
-    // Add to history
-    var li = document.createElement("li");
-    var small = document.createElement("small");
-    small.textContent = letter;
-    var strong = document.createElement("strong");
-    strong.textContent = n;
-    li.appendChild(small);
-    li.appendChild(strong);
-    li.style.backgroundColor = "";
-    historyEl.insertBefore(li, historyEl.firstChild);
-    while (historyEl.children.length > 10) historyEl.removeChild(historyEl.lastChild);
+    // Add to the letter's history group (order of being called preserved)
+    var groupList = historyEl.querySelector('.hist-group[data-letter="' + letter + '"] .hist-list');
+    if (groupList) {
+      var li = document.createElement("li");
+      var strong = document.createElement("strong");
+      strong.textContent = n;
+      li.appendChild(strong);
+      groupList.appendChild(li);
+    }
 
     // Update ledger
     updateLedger();
@@ -130,7 +128,9 @@
 
   function newGame() {
     called = [];
-    historyEl.innerHTML = "";
+    historyEl.querySelectorAll(".hist-list").forEach(function (list) {
+      list.innerHTML = "";
+    });
     ball.className = "ball empty";
     ball.removeAttribute("data-letter");
     ball.querySelector(".ball-letter").textContent = "—";
