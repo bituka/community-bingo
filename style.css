@@ -163,6 +163,7 @@ h3, h1 {
   font-size: clamp(5.5rem, 13vmin, 15rem);
   line-height: 1;
   margin-top: 0.1em;
+  color: #14532d; /* dark green — readable on the cream ball face */
 }
 
 .ball.empty {
