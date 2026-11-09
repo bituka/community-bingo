@@ -87,16 +87,17 @@ h1 em {
 .hall {
   flex: 1;
   display: grid;
-  grid-template-columns: minmax(320px, 460px) 1fr;
-  gap: 2.5rem;
-  width: min(1180px, 100%);
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: min(1200px, 100%);
   margin: 0 auto;
-  padding: 2.5rem 1.5rem 3rem;
-  align-items: start;
+  padding: 2rem;
+  align-items: center;
+  justify-items: center;
 }
 
 @media (max-width: 860px) {
-  .hall { grid-template-columns: 1fr; gap: 2rem; }
+  .hall { grid-template-columns: 1fr; }
 }
 
 /* ---------- Stage / machine ---------- */
@@ -107,6 +108,7 @@ h1 em {
   gap: 1.4rem;
   position: sticky;
   top: 1.5rem;
+  align-items: center;
 }
 
 @media (max-width: 860px) {
@@ -212,6 +214,7 @@ h1 em {
   color: var(--amber);
   min-height: 1.2em;
   text-align: center;
+  width: 100%;
 }
 
 /* ---------- Controls ---------- */
@@ -220,6 +223,7 @@ h1 em {
   display: flex;
   gap: 0.8rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btn {
@@ -285,6 +289,7 @@ h1 em {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  justify-content: center;
   min-height: 3rem;
 }
 
@@ -390,10 +395,10 @@ h1 em {
 
 .ledger {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
-  width: min(1180px, 100%);
-  margin: 0 auto;
+  width: min(1200px, 100%);
+  margin: 1rem auto 0 auto;
   padding: 1rem 1.5rem 1.4rem;
   font-family: "Space Mono", monospace;
   font-size: 0.78rem;
