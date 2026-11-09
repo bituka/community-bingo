@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Redirect</title>
+</head>
+<body>
+    <script>
+        window.onload = function() {
+            var fragment = window.location.hash;
+            var url = new URL('https:\/\/app.netlify.com\/edge-access?domain=bingo-balls-app.netlify.app\u0026requested_path=%2Findex.html\u0026site_id=dd1e9658-404e-4646-bd79-f957595e9619');
+            if (fragment) {
+                var requestedPath = url.searchParams.get('requested_path');
+                url.searchParams.set('requested_path', requestedPath + fragment);
+            }
+            window.location.href = url.toString();
+        };
+    </script>
+
+    <noscript>
+        <p>Please enable JavaScript to continue. This login redirect requires JavaScript.</p>
+    </noscript>
+</body>
+</html>
