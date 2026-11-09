@@ -1,23 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login Redirect</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Bingo — Ball Caller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script>
-        window.onload = function() {
-            var fragment = window.location.hash;
-            var url = new URL('https:\/\/app.netlify.com\/edge-access?domain=bingo-balls-app.netlify.app\u0026requested_path=%2Findex.html\u0026site_id=dd1e9658-404e-4646-bd79-f957595e9619');
-            if (fragment) {
-                var requestedPath = url.searchParams.get('requested_path');
-                url.searchParams.set('requested_path', requestedPath + fragment);
-            }
-            window.location.href = url.toString();
-        };
-    </script>
 
-    <noscript>
-        <p>Please enable JavaScript to continue. This login redirect requires JavaScript.</p>
-    </noscript>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+</svg>
+
+<div class="grain-overlay" aria-hidden="true"></div>
+
+<header class="marquee">
+  <div class="marquee-inner">
+    <span class="deco" aria-hidden="true">&#10022; &#10022; &#10022;</span>
+    <h1>Community Bingo</h1>
+    <span class="deco" aria-hidden="true">&#10022; &#10022; &#10022;</span>
+  </div>
+  <p class="tagline">Seventy-five balls. One caller. No mercy.</p>
+</header>
+
+<main class="hall">
+
+  <section class="stage" aria-label="Current call">
+    <div class="machine">
+      <div class="ball-tray" id="ballTray">
+        <div class="ball empty" id="currentBall">
+          <span class="ball-letter">&ndash;</span>
+          <span class="ball-number">&ndash;</span>
+        </div>
+      </div>
+      <div class="callout" id="callout">Press <kbd>Draw</kbd> to start the game</div>
+    </div>
+
+    <div class="controls">
+      <button class="btn btn-draw" id="drawBtn">Draw ball</button>
+      <button class="btn btn-ghost" id="autoBtn" aria-pressed="false">Auto-call</button>
+      <button class="btn btn-ghost" id="resetBtn">New game</button>
+    </div>
+
+    <div class="history" aria-label="Recent calls">
+      <h2 class="history-title">Last calls</h2>
+      <ol class="history-strip" id="history"></ol>
+    </div>
+  </section>
+
+  <section class="board" aria-label="Full number board">
+    <div class="board-head" id="boardHead">
+      <span>B</span><span>I</span><span>N</span><span>G</span><span>O</span>
+    </div>
+    <div class="board-grid" id="board"></div>
+  </section>
+
+</main>
+
+<footer class="ledger">
+  <span id="drawCount">0 of 75 drawn</span>
+  <span id="statusMsg">Good luck, everybody</span>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
