@@ -12,8 +12,6 @@
   // DOM elements
   var ball = document.getElementById("currentBall");
   var callout = document.getElementById("callout");
-  var drawBtn = document.getElementById("drawBtn");
-  var autoBtn = document.getElementById("autoBtn");
   var resetBtn = document.getElementById("resetBtn");
   var historyEl = document.getElementById("history");
   var boardEl = document.getElementById("board");
@@ -23,6 +21,15 @@
 
   function letterFor(n) {
     return LETTERS[Math.floor((n - 1) / PER_ROW)];
+  }
+
+  function getLetterFromNumber(n) {
+    if (n >= 1 && n <= 15) return "B";
+    if (n >= 16 && n <= 30) return "I";
+    if (n >= 31 && n <= 45) return "N";
+    if (n >= 46 && n <= 60) return "G";
+    if (n >= 61 && n <= 75) return "O";
+    return "";
   }
 
   function buildBoard() {
@@ -38,7 +45,7 @@
   }
 
   function markBoard(n, on) {
-    var cell = boardEl.querySelector('[data-n="' + n + ""]");
+    var cell = boardEl.querySelector('[data-n="' + n + ""]');
     if (cell) cell.classList.toggle("hit", on);
   }
 
@@ -47,7 +54,7 @@
     if (called.includes(n)) return;
 
     called.push(n);
-    var letter = letterFor(n);
+    var letter = getLetterFromNumber(n);
 
     // Update the current ball display
     ball.className = "ball";
@@ -77,9 +84,8 @@
     // Update ledger
     updateLedger();
 
-    // If no pool left, game complete
+    // If all balls called, game complete
     if (called.length >= TOTAL) {
-      drawBtn.disabled = true;
       callout.textContent = "All balls called — full house!";
       statusMsg.textContent = "Game complete";
       stopAuto();
@@ -91,14 +97,13 @@
     if (called.length && called.length < TOTAL) {
       statusMsg.textContent = Math.round((called.length / TOTAL) * 100) + "% called";
     } else if (!called.length) {
-      statusMsg.textContent = "Enter balls to track";
+      statusMsg.textContent = "Enter a ball number (1-75)";
     }
   }
 
   function startAuto() {
     autoTimer = setInterval(function () {
-      // Auto mode now just calls the last manually added ball, or we could skip this
-      // Since user wants manual, we'll just stop auto if somehow triggered
+      // Since user wants manual selection, stop auto if triggered
       stopAuto();
     }, 100);
     autoBtn.setAttribute("aria-pressed", "true");
@@ -111,35 +116,47 @@
     autoBtn.textContent = "Auto-call";
   }
 
-  // Manual add ball function
+  // Manual add ball from input field
   function manualAddBall() {
-    var input = document.getElementById("manualNumber");
+    var input = document.getElementById("ballNumberInput");
     if (!input) return;
 
-    var n = parseInt(input.value, 10);
-    if (isNaN(n) || n < 1 || n > 75) {
-      alert("Please enter a number between 1 and 75");
+    var value = input.value.trim();
+
+    // Parse input: accept "52" or "G-52" or "G52"
+    var n = null;
+    var letter = "";
+
+    // Try to extract number from various formats
+    var numMatch = value.match(/(\d+)/);
+    if (numMatch) {
+      n = parseInt(numMatch[1], 10);
+    }
+
+    // Try to extract letter
+    var letterMatch = value.match(/([BINGO])/i);
+    if (letterMatch) {
+      letter = letterMatch[1].toUpperCase();
+    }
+
+    // If we have a number, validate it
+    if (n !== null && !isNaN(n) && n >= 1 && n <= 75) {
+      // If letter was specified, validate it matches the number range
+      if (letter) {
+        var expectedLetter = getLetterFromNumber(n);
+        if (letter !== expectedLetter) {
+          alert("Number " + n + " is in the " + expectedLetter + " range, not " + letter);
+          input.value = "";
+          input.focus();
+          return;
+        }
+      }
+      addCalledBall(n);
+    } else {
+      alert("Please enter a valid ball number (1-75), e.g., '52' or 'G-52'");
       input.value = "";
       input.focus();
-      return;
     }
-
-    // Validate letter based on number range
-    var letter = letterFor(n);
-    var letterInput = document.getElementById("manualLetter");
-    if (letterInput) {
-      var enteredLetter = letterInput.value.trim().toUpperCase();
-      if (LETTERS.includes(enteredLetter)) {
-        letter = enteredLetter;
-      }
-    }
-
-    // Find the actual number based on letter and position
-    // For manual entry, we'll just use the number entered
-    addCalledBall(n);
-
-    input.value = "";
-    input.focus();
   }
 
   function newGame() {
@@ -150,8 +167,7 @@
     ball.removeAttribute("data-letter");
     ball.querySelector(".ball-letter").textContent = "—";
     ball.querySelector(".ball-number").textContent = "—";
-    callout.textContent = "Seventy-five balls in the cage. Ready when you are.";
-    drawBtn.disabled = false;
+    callout.textContent = "Enter a ball number (1-75) to start";
     updateLedger();
     markAllOff();
   }
@@ -167,33 +183,26 @@
   buildBoard();
   newGame();
 
-  // Add manual ball input UI and event listeners
+  // Add manual input UI
   function initManualUI() {
-    // Create manual input UI
     var controls = document.querySelector(".controls");
     if (!controls) return;
 
-    // Add manual input box
-    var manualHTML = `
+    // Add input field for ball number
+    var inputHTML = `
       <div class="manual-input" style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.5rem;">
-        <input type="number" id="manualNumber" min="1" max="75" placeholder="1-75" style="flex: 1; padding: 0.5rem; border: 1px solid rgba(244,236,216,0.3); border-radius: 6px; background: rgba(0,0,0,0.2); color: var(--cream);">
-        <select id="manualLetter" style="padding: 0.5rem; border: 1px solid rgba(244,236,216,0.3); border-radius: 6px; background: rgba(0,0,0,0.2); color: var(--cream);">
-          <option value="">Letter</option>
-          <option value="B">B</option>
-          <option value="I">I</option>
-          <option value="N">N</option>
-          <option value="G">G</option>
-          <option value="O">O</option>
-        </select>
+        <input type="text" id="ballNumberInput" placeholder="e.g., 52 or G-52" 
+               style="flex: 1; padding: 0.5rem; border: 1px solid rgba(244,236,216,0.3); border-radius: 6px; background: rgba(0,0,0,0.2); color: var(--cream);"
+               maxlength="10">
         <button id="addBallBtn" class="btn btn-ghost" style="padding: 0.5rem 0.8rem;">Add</button>
       </div>
     `;
-    controls.insertAdjacentHTML("beforeend", manualHTML);
+    controls.insertAdjacentHTML("beforeend", inputHTML);
 
     document.getElementById("addBallBtn").addEventListener("click", manualAddBall);
 
     // Allow Enter key to add ball
-    document.getElementById("manualNumber").addEventListener("keydown", function(e) {
+    document.getElementById("ballNumberInput").addEventListener("keydown", function(e) {
       if (e.key === "Enter") {
         manualAddBall();
       }
@@ -202,10 +211,8 @@
 
   initManualUI();
 
-  // Keep existing drawBtn functionality disabled since we're doing manual selection
-  drawBtn.disabled = true;
-  drawBtn.style.opacity = "0.45";
-  drawBtn.style.cursor = "not-allowed";
+  // Remove draw button styling - no longer needed
+  // (draw button is gone from HTML)
 
   // History strip animation support
   var historyStrip = document.querySelector(".history-strip");
