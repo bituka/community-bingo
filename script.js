@@ -7,7 +7,6 @@
 
   // Track called balls manually
   var called = [];
-  var autoTimer = null;
 
   // DOM elements
   var ball = document.getElementById("currentBall");
@@ -101,19 +100,10 @@
     }
   }
 
-  function startAuto() {
-    autoTimer = setInterval(function () {
-      // Since user wants manual selection, stop auto if triggered
-      stopAuto();
-    }, 100);
-    autoBtn.setAttribute("aria-pressed", "true");
-    autoBtn.textContent = "Auto: on";
-  }
+  // No auto-call functionality - manual selection only
 
   function stopAuto() {
-    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
-    autoBtn.setAttribute("aria-pressed", "false");
-    autoBtn.textContent = "Auto-call";
+    // autoBtn is no longer in the DOM
   }
 
   // Manual add ball from input field
