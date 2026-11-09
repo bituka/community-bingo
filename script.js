@@ -112,6 +112,13 @@
     if (!input) return;
 
     var value = input.value.trim();
+    
+    // Give feedback if input is empty
+    if (value === "") {
+      statusMsg.textContent = "Please enter a ball number (1-75)";
+      input.focus();
+      return;
+    }
 
     // Parse input: accept "52" or "G-52" or "G52"
     var n = null;
@@ -142,6 +149,7 @@
         }
       }
       addCalledBall(n);
+      statusMsg.textContent = called.length + " of " + TOTAL + " drawn";
     } else {
       alert("Please enter a valid ball number (1-75), e.g., '52' or 'G-52'");
       input.value = "";
