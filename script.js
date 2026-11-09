@@ -144,26 +144,15 @@
   // Initialize
   newGame();
 
-  // Add manual input UI
+  // Attach manual input listeners (input lives in index.html)
   function initManualUI() {
-    var controls = document.querySelector(".controls");
-    if (!controls) return;
+    var addBtn = document.getElementById("addBallBtn");
+    var input = document.getElementById("ballNumberInput");
 
-    // Add input field for ball number
-    var inputHTML = `
-      <div class="manual-input" style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.5rem;">
-        <input type="text" id="ballNumberInput" placeholder="e.g., 52 or G-52" 
-               style="flex: 1; padding: 0.5rem; border: 1px solid rgba(244,236,216,0.3); border-radius: 6px; background: rgba(0,0,0,0.2); color: var(--cream);"
-               maxlength="10">
-        <button id="addBallBtn" class="btn btn-ghost" style="padding: 0.5rem 0.8rem;">Add</button>
-      </div>
-    `;
-    controls.insertAdjacentHTML("beforeend", inputHTML);
-
-    document.getElementById("addBallBtn").addEventListener("click", manualAddBall);
+    if (addBtn) addBtn.addEventListener("click", manualAddBall);
 
     // Allow Enter key to add ball
-    document.getElementById("ballNumberInput").addEventListener("keydown", function(e) {
+    if (input) input.addEventListener("keydown", function (e) {
       if (e.key === "Enter") {
         manualAddBall();
       }
