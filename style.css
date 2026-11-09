@@ -274,7 +274,7 @@ h3, h1 {
 
 .history-title {
   font-family: "Bungee", sans-serif;
-  font-size: 0.8rem;
+  font-size: clamp(1rem, 2.2vmin, 1.8rem);
   letter-spacing: 0.2em;
   color: var(--cream-dim);
   margin-bottom: 0.7rem;
@@ -283,15 +283,15 @@ h3, h1 {
 .history-strip {
   list-style: none;
   display: flex;
-  gap: 0.5rem;
+  gap: clamp(0.6rem, 1.2vmin, 1.4rem);
   flex-wrap: wrap;
   justify-content: center;
-  min-height: 3rem;
+  min-height: 4rem;
 }
 
 .history-strip li {
-  width: 3rem;
-  height: 3.2rem;
+  width: clamp(4rem, 9vmin, 9rem);
+  height: clamp(4.2rem, 9.5vmin, 9.5rem);
   border-radius: 50% 50% 50% 50% / 46% 46% 54% 54%;
   background: var(--ball-face);
   color: var(--ink);
@@ -305,13 +305,13 @@ h3, h1 {
 }
 
 .history-strip li small {
-  font-size: 0.55rem;
+  font-size: clamp(0.85rem, 2vmin, 1.8rem);
   font-weight: 700;
   line-height: 1;
 }
 
 .history-strip li strong {
-  font-size: 0.95rem;
+  font-size: clamp(1.3rem, 3.2vmin, 3rem);
   line-height: 1.1;
 }
 
