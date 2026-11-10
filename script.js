@@ -16,6 +16,7 @@
   var drawCount = document.getElementById("drawCount");
   var statusMsg = document.getElementById("statusMsg");
   var bingoToggle = document.getElementById("bingoToggle");
+  var clearHighlightsBtn = document.getElementById("clearHighlightsBtn");
   var inputErrorModal = document.getElementById("inputErrorModal");
   var inputErrorMessage = document.getElementById("inputErrorMessage");
   var closeInputErrorBtn = document.getElementById("closeInputError");
@@ -260,6 +261,13 @@
 
   bingoToggle.addEventListener("click", function () {
     setRecapMode(!recapMode);
+  });
+
+  clearHighlightsBtn.addEventListener("click", function () {
+    historyEl.querySelectorAll(".hist-number.highlighted").forEach(function (button) {
+      button.classList.remove("highlighted");
+      updateHistoryButton(button);
+    });
   });
 
   editCommunityNameBtn.addEventListener("click", function () {

@@ -363,6 +363,15 @@ h3, h1 {
   margin-bottom: 0.7rem;
 }
 
+.clear-highlights-btn {
+  display: none;
+  margin: 0 auto 1rem;
+}
+
+.recap-mode .clear-highlights-btn {
+  display: block;
+}
+
 .history-groups {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
