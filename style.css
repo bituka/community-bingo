@@ -619,12 +619,11 @@ h3, h1 {
 
 .bingo-toggle {
   position: fixed;
-  left: 50%;
-  bottom: 1rem;
+  top: 1rem;
+  right: 1rem;
   z-index: 60;
   min-width: 9rem;
   padding: 0.7rem 1.4rem;
-  transform: translateX(-50%);
   background: linear-gradient(180deg, var(--red), var(--red-deep));
   color: var(--cream);
   box-shadow: 0 6px 0 var(--red-deep), 0 14px 24px rgba(0, 0, 0, 0.35);
@@ -635,7 +634,7 @@ h3, h1 {
 }
 
 .bingo-toggle:active:not(:disabled) {
-  transform: translateX(-50%) translateY(2px) scale(0.98);
+  transform: translateY(2px) scale(0.98);
 }
 
 .bingo-toggle:disabled {
@@ -739,6 +738,16 @@ h3, h1 {
 @media (max-width: 700px) {
   .recap-mode .history-groups {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .bingo-toggle {
+    top: 0.6rem;
+    right: 0.6rem;
+    min-width: 0;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.72rem;
   }
 }
 
