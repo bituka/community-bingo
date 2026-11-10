@@ -710,6 +710,15 @@ h3, h1 {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.recap-mode .hist-letter {
+  font-size: clamp(2.2rem, 5.2vmin, 4.4rem);
+}
+
+.recap-mode .hist-number {
+  padding: clamp(0.3rem, 1vmin, 1rem) clamp(0.8rem, 1.8vmin, 1.8rem);
+  font-size: clamp(3.6rem, 8.8vmin, 8rem);
+}
+
 .recap-mode .hist-group[hidden] {
   display: none;
 }
