@@ -630,12 +630,18 @@ h3, h1 {
   box-shadow: 0 6px 0 var(--red-deep), 0 14px 24px rgba(0, 0, 0, 0.35);
 }
 
-.bingo-toggle:hover {
+.bingo-toggle:not(:disabled):hover {
   box-shadow: 0 8px 0 var(--red-deep), 0 18px 30px rgba(0, 0, 0, 0.4);
 }
 
-.bingo-toggle:active {
+.bingo-toggle:active:not(:disabled) {
   transform: translateX(-50%) translateY(2px) scale(0.98);
+}
+
+.bingo-toggle:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .bingo-toggle:focus-visible {

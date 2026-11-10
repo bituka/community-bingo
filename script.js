@@ -100,6 +100,7 @@
 
   function updateLedger() {
     drawCount.textContent = called.length + " of " + TOTAL + " drawn";
+    bingoToggle.disabled = called.length === 0 && !recapMode;
     if (called.length && called.length < TOTAL) {
       statusMsg.textContent = Math.round((called.length / TOTAL) * 100) + "% called";
     } else if (!called.length) {
@@ -122,6 +123,7 @@
     }
 
     recapMode = enabled;
+    bingoToggle.disabled = called.length === 0 && !recapMode;
     bingoToggle.textContent = recapMode ? "Back to game" : "Bingo!";
     bingoToggle.setAttribute("aria-pressed", String(recapMode));
 
