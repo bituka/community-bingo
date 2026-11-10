@@ -369,7 +369,12 @@ h3, h1 {
 }
 
 .recap-mode .clear-highlights-btn {
+  position: fixed;
+  top: 4.5rem;
+  right: 1rem;
+  z-index: 60;
   display: block;
+  margin: 0;
 }
 
 .history-groups {
@@ -764,6 +769,13 @@ h3, h1 {
     top: 0.6rem;
     right: 0.6rem;
     min-width: 0;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.72rem;
+  }
+
+  .recap-mode .clear-highlights-btn {
+    top: 3.2rem;
+    right: 0.6rem;
     padding: 0.45rem 0.7rem;
     font-size: 0.72rem;
   }
