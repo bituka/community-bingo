@@ -91,7 +91,7 @@ h3, h1 {
   justify-items: center;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .hall { grid-template-columns: 1fr; align-items: center; }
 }
 
@@ -111,8 +111,8 @@ h3, h1 {
   .stage { position: static; }
 }
 
-@media (min-width: 900px) {
-  .stage { flex-direction: row; flex-wrap: nowrap; align-items: flex-start; }
+@media (min-width: 768px) {
+  .stage { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
   .machine { width: auto; flex: 1 1 0; min-width: 0; }
   .controls, .history { flex-basis: 100%; }
 }
