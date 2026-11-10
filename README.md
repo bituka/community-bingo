@@ -2,7 +2,7 @@
 
 A simple, browser-based bingo caller and pattern card for community games.
 
-**Play the app:** [https://bingo-balls-app.netlify.app/](https://bingo-balls-app.netlify.app/)
+**Play the app:** [Netlify](https://bingo-balls-app.netlify.app/) · [Vercel](https://community-bingo.vercel.app/)
 
 ## Features
 
