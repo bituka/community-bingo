@@ -144,6 +144,86 @@
   // Initialize
   newGame();
 
+// ---------- Pattern card ----------
+
+  var PATTERN_KEY = "communityBingoPattern";
+  var FREE_RC = "2,2"; // center cell is the free space
+  var cardGrid = document.getElementById("cardGrid");
+  var clearPatternBtn = document.getElementById("clearPatternBtn");
+  var pattern = {};
+
+  function loadPattern() {
+    try {
+      pattern = JSON.parse(window.localStorage.getItem(PATTERN_KEY)) || {};
+      if (typeof pattern !== "object" || Array.isArray(pattern)) pattern = {};
+    } catch (e) { pattern = {}; }
+    pattern[FREE_RC] = true; // free space is always on
+  }
+
+  function savePattern() {
+    try { window.localStorage.setItem(PATTERN_KEY, JSON.stringify(pattern)); } catch (e) {}
+  }
+
+  function buildCard() {
+    if (!cardGrid) return;
+    cardGrid.innerHTML = "";
+    for (var r = 0; r < 5; r++) {
+      for (var c = 0; c < 5; c++) {
+        var rc = r + "," + c;
+        var cell = document.createElement("button");
+        cell.type = "button";
+        cell.className = "card-cell";
+        cell.dataset.rc = rc;
+        cell.setAttribute("aria-label", "Row " + (r + 1) + ", column " + (c + 1));
+        if (rc === FREE_RC) {
+          cell.classList.add("free");
+          cell.textContent = "FREE";
+          cell.disabled = true;
+        }
+        if (pattern[rc]) cell.classList.add("on");
+        cardGrid.appendChild(cell);
+      }
+    }
+  }
+
+  function togglePatternCell(rc, cell) {
+    if (rc === FREE_RC) return;
+    if (pattern[rc]) {
+      delete pattern[rc];
+      cell.classList.remove("on");
+    } else {
+      pattern[rc] = true;
+      cell.classList.add("on");
+    }
+    savePattern();
+  }
+
+  function clearPattern() {
+    if (cardGrid) {
+      cardGrid.querySelectorAll(".card-cell.on").forEach(function (cell) {
+        if (!cell.classList.contains("free")) cell.classList.remove("on");
+      });
+    }
+    pattern = {};
+    pattern[FREE_RC] = true;
+    savePattern();
+  }
+
+  if (cardGrid) {
+    cardGrid.addEventListener("click", function (e) {
+      var cell = e.target.closest(".card-cell");
+      if (!cell || cell.disabled) return;
+      togglePatternCell(cell.dataset.rc, cell);
+    });
+  }
+  if (clearPatternBtn) {
+    clearPatternBtn.addEventListener("click", clearPattern);
+  }
+
+  // Initialize pattern card (survives reloads and New game)
+  loadPattern();
+  buildCard();
+
   // Attach manual input listeners (input lives in index.html)
   function initManualUI() {
     var addBtn = document.getElementById("addBallBtn");

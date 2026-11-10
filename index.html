@@ -33,13 +33,13 @@
 <main class="hall">
 
   <section class="stage" aria-label="Current call">
-    <div class="machine">
-      <div class="ball-tray" id="ballTray">
-        <div class="ball empty" id="currentBall">
-          <span class="ball-letter">&ndash;</span>
-          <span class="ball-number">&ndash;</span>
-        </div>
+    <div class="ball-tray" id="ballTray">
+      <div class="ball empty" id="currentBall">
+        <span class="ball-letter">&ndash;</span>
+        <span class="ball-number">&ndash;</span>
       </div>
+    </div>
+    <div class="machine">
       <div class="callout" id="callout">Enter a ball number (1-75) to start</div>
     </div>
 
@@ -65,6 +65,17 @@
     </div>
   </section>
 
+  <section class="card-panel" aria-label="Game pattern card">
+    <h2 class="card-title">Game pattern</h2>
+    <p class="card-hint">Tap cells to mark the winning pattern for this game</p>
+    <div class="card-head">
+      <span>B</span><span>I</span><span>N</span><span>G</span><span>O</span>
+    </div>
+    <div class="card-grid" id="cardGrid"></div>
+    <div class="card-actions">
+      <button class="btn btn-ghost" id="clearPatternBtn">Clear pattern</button>
+    </div>
+  </section>
 
 </main>
 
