@@ -92,7 +92,7 @@ h3, h1 {
 }
 
 @media (min-width: 900px) {
-  .hall { grid-template-columns: 1fr 1fr; align-items: center; }
+  .hall { grid-template-columns: 1fr; align-items: center; }
 }
 
 /* ---------- Stage / machine ---------- */
@@ -112,7 +112,7 @@ h3, h1 {
 }
 
 @media (min-width: 900px) {
-  .stage { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+  .stage { flex-direction: row; flex-wrap: nowrap; align-items: flex-start; }
   .machine { width: auto; flex: 1 1 0; min-width: 0; }
   .controls, .history { flex-basis: 100%; }
 }
