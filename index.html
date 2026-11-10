@@ -24,9 +24,15 @@
 <header class="marquee">
   <div class="marquee-inner">
     <span class="deco" aria-hidden="true">&#10022; &#10022; &#10022;</span>
-    <h3>Community Bingo</h3>
+    <h3><span id="communityName">Community</span> Bingo <button class="edit-title-btn" id="editCommunityName" type="button" aria-label="Change community name">Edit</button></h3>
     <span class="deco" aria-hidden="true">&#10022; &#10022; &#10022;</span>
   </div>
+  <form class="community-name-form" id="communityNameForm" hidden>
+    <label for="communityNameInput">Community name</label>
+    <input id="communityNameInput" type="text" maxlength="40" required>
+    <button class="btn btn-ghost" type="submit">Save</button>
+    <button class="btn btn-ghost" id="cancelCommunityName" type="button">Cancel</button>
+  </form>
   <p class="tagline">Seventy-five balls. One caller.</p>
 </header>
 

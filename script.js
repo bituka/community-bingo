@@ -15,6 +15,29 @@
   var historyEl = document.getElementById("history");
   var drawCount = document.getElementById("drawCount");
   var statusMsg = document.getElementById("statusMsg");
+  var communityNameEl = document.getElementById("communityName");
+  var editCommunityNameBtn = document.getElementById("editCommunityName");
+  var communityNameForm = document.getElementById("communityNameForm");
+  var communityNameInput = document.getElementById("communityNameInput");
+  var cancelCommunityNameBtn = document.getElementById("cancelCommunityName");
+  var COMMUNITY_NAME_KEY = "communityBingoName";
+
+  function applyCommunityName(name) {
+    name = name.trim().slice(0, 40);
+    if (!name) return;
+
+    communityNameEl.textContent = name;
+    document.title = name + " Bingo \u2014 Ball Display";
+    try { window.localStorage.setItem(COMMUNITY_NAME_KEY, name); } catch (e) {}
+  }
+
+  try {
+    var savedCommunityName = window.localStorage.getItem(COMMUNITY_NAME_KEY);
+    if (savedCommunityName && savedCommunityName.trim()) {
+      communityNameEl.textContent = savedCommunityName.trim().slice(0, 40);
+    }
+  } catch (e) {}
+  document.title = communityNameEl.textContent + " Bingo \u2014 Ball Display";
 
   function letterFor(n) {
     return LETTERS[Math.floor((n - 1) / PER_ROW)];
@@ -175,6 +198,39 @@
   }
 
   resetBtn.addEventListener("click", newGame);
+
+  editCommunityNameBtn.addEventListener("click", function () {
+    communityNameInput.value = communityNameEl.textContent;
+    communityNameForm.hidden = false;
+    communityNameInput.focus();
+    communityNameInput.select();
+  });
+
+  communityNameForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = communityNameInput.value.trim();
+    communityNameInput.setCustomValidity(name ? "" : "Please enter a community name.");
+    if (!communityNameForm.reportValidity()) return;
+
+    applyCommunityName(name);
+    communityNameForm.hidden = true;
+    editCommunityNameBtn.focus();
+  });
+
+  communityNameInput.addEventListener("input", function () {
+    communityNameInput.setCustomValidity("");
+  });
+
+  function cancelCommunityNameEdit() {
+    communityNameInput.setCustomValidity("");
+    communityNameForm.hidden = true;
+    editCommunityNameBtn.focus();
+  }
+
+  cancelCommunityNameBtn.addEventListener("click", cancelCommunityNameEdit);
+  communityNameInput.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") cancelCommunityNameEdit();
+  });
 
   // Initialize
   newGame();
