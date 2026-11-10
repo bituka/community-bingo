@@ -15,12 +15,14 @@
   var historyEl = document.getElementById("history");
   var drawCount = document.getElementById("drawCount");
   var statusMsg = document.getElementById("statusMsg");
+  var bingoToggle = document.getElementById("bingoToggle");
   var communityNameEl = document.getElementById("communityName");
   var editCommunityNameBtn = document.getElementById("editCommunityName");
   var communityNameForm = document.getElementById("communityNameForm");
   var communityNameInput = document.getElementById("communityNameInput");
   var cancelCommunityNameBtn = document.getElementById("cancelCommunityName");
   var COMMUNITY_NAME_KEY = "communityBingoName";
+  var recapMode = false;
 
   function applyCommunityName(name) {
     name = name.trim().slice(0, 40);
@@ -102,6 +104,18 @@
     }
   }
 
+  function setRecapMode(enabled) {
+    recapMode = enabled;
+    document.body.classList.toggle("recap-mode", recapMode);
+    bingoToggle.textContent = recapMode ? "Back to game" : "Bingo!";
+    bingoToggle.setAttribute("aria-pressed", String(recapMode));
+
+    historyEl.querySelectorAll(".hist-group").forEach(function (group) {
+      var list = group.querySelector(".hist-list");
+      group.hidden = recapMode && list.children.length === 0;
+    });
+  }
+
   historyEl.addEventListener("click", function (e) {
     var numberButton = e.target.closest(".hist-number");
     if (!numberButton) return;
@@ -113,6 +127,7 @@
     called.splice(calledIndex, 1);
     numberButton.closest("li").remove();
     updateLedger();
+    setRecapMode(recapMode);
 
     if (Number(ball.querySelector(".ball-number").textContent) === n) {
       var latestCalled = called[called.length - 1];
@@ -198,6 +213,9 @@
   }
 
   resetBtn.addEventListener("click", newGame);
+  bingoToggle.addEventListener("click", function () {
+    setRecapMode(!recapMode);
+  });
 
   editCommunityNameBtn.addEventListener("click", function () {
     communityNameInput.value = communityNameEl.textContent;
