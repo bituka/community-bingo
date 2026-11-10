@@ -757,7 +757,7 @@ h3, h1 {
     top: 4.7rem;
     right: 1rem;
     z-index: 60;
-    width: min(20rem, calc(100vw - 2rem));
+    width: fit-content;
     margin-top: 0 !important;
     padding: 0.4rem;
     border: 1px solid rgba(244, 236, 216, 0.2);
@@ -765,13 +765,18 @@ h3, h1 {
     background: rgba(12, 36, 28, 0.94);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   }
+
+  .manual-input #ballNumberInput {
+    flex: 0 0 calc(2ch + 1rem + 2px) !important;
+    width: calc(2ch + 1rem + 2px);
+    min-width: 0;
+  }
 }
 
 @media (max-width: 560px) {
   .manual-input {
     top: 3.2rem;
     right: 0.6rem;
-    width: min(18rem, calc(100vw - 1.2rem));
   }
 }
 
