@@ -139,7 +139,7 @@ h3, h1 {
   .history .history-groups { grid-template-columns: 1fr; gap: 0.6rem; }
   .hist-group { padding: 0.6rem 0.8rem; }
   .hist-letter { font-size: clamp(1.1rem, 2.4vmin, 1.6rem); }
-  .hist-list li { font-size: clamp(0.85rem, 1.6vmin, 1.4rem); }
+  .hist-number { font-size: clamp(0.85rem, 1.6vmin, 1.4rem); }
 
   /* trim the ball + panels so all three columns fit beside the machine */
   .ball-tray { width: clamp(240px, 30vmin, 420px); height: clamp(240px, 30vmin, 420px); }
@@ -367,7 +367,8 @@ h3, h1 {
   align-content: flex-start;
 }
 
-.hist-list li {
+.hist-number {
+  border: 0;
   padding: clamp(0.15rem, 0.5vmin, 0.5rem) clamp(0.4rem, 0.9vmin, 0.9rem);
   border-radius: 999px;
   background: var(--ball-face);
@@ -378,6 +379,16 @@ h3, h1 {
   line-height: 1.4;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
   animation: popSmall 0.35s cubic-bezier(0.22, 1.2, 0.35, 1) both;
+  cursor: pointer;
+}
+
+.hist-number:hover {
+  background: #fff;
+}
+
+.hist-number:focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 2px;
 }
 
 @keyframes popSmall {

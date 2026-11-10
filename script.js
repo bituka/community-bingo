@@ -50,9 +50,13 @@
     var groupList = historyEl.querySelector('.hist-group[data-letter="' + letter + '"] .hist-list');
     if (groupList) {
       var li = document.createElement("li");
-      var strong = document.createElement("strong");
-      strong.textContent = n;
-      li.appendChild(strong);
+      var numberButton = document.createElement("button");
+      numberButton.type = "button";
+      numberButton.className = "hist-number";
+      numberButton.textContent = n;
+      numberButton.dataset.number = n;
+      numberButton.setAttribute("aria-label", "Remove " + letter + " " + n + " from called numbers");
+      li.appendChild(numberButton);
       groupList.appendChild(li);
     }
 
@@ -74,6 +78,37 @@
       statusMsg.textContent = "Enter a ball number (1-75)";
     }
   }
+
+  historyEl.addEventListener("click", function (e) {
+    var numberButton = e.target.closest(".hist-number");
+    if (!numberButton) return;
+
+    var n = Number(numberButton.dataset.number);
+    var calledIndex = called.indexOf(n);
+    if (calledIndex === -1) return;
+
+    called.splice(calledIndex, 1);
+    numberButton.closest("li").remove();
+    updateLedger();
+
+    if (Number(ball.querySelector(".ball-number").textContent) === n) {
+      var latestCalled = called[called.length - 1];
+      if (latestCalled) {
+        var letter = getLetterFromNumber(latestCalled);
+        ball.className = "ball";
+        ball.setAttribute("data-letter", letter);
+        ball.querySelector(".ball-letter").textContent = letter;
+        ball.querySelector(".ball-number").textContent = latestCalled;
+        callout.textContent = letter + " \u2013 " + latestCalled + "!";
+      } else {
+        ball.className = "ball empty";
+        ball.removeAttribute("data-letter");
+        ball.querySelector(".ball-letter").textContent = "\u2014";
+        ball.querySelector(".ball-number").textContent = "\u2014";
+        callout.textContent = "Enter a ball number (1-75) to start";
+      }
+    }
+  });
 
   // Manual add ball from input field
   function manualAddBall() {
