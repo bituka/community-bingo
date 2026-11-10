@@ -678,8 +678,38 @@ h3, h1 {
   display: none;
 }
 
+.recap-mode .hall {
+  animation: recapViewIn 300ms ease-out both;
+}
+
+.game-restoring .marquee,
+.game-restoring .hall,
+.game-restoring .ledger {
+  animation: recapViewIn 300ms ease-out both;
+}
+
+@keyframes recapViewIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 700px) {
   .recap-mode .history-groups {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recap-mode .hall,
+  .game-restoring .marquee,
+  .game-restoring .hall,
+  .game-restoring .ledger {
+    animation: none;
   }
 }

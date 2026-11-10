@@ -105,11 +105,20 @@
   }
 
   function setRecapMode(enabled) {
+    if (recapMode !== enabled) {
+      document.body.classList.remove("game-restoring");
+      document.body.classList.toggle("recap-mode", enabled);
+      if (!enabled) document.body.classList.add("game-restoring");
+    }
+
     recapMode = enabled;
-    document.body.classList.toggle("recap-mode", recapMode);
     bingoToggle.textContent = recapMode ? "Back to game" : "Bingo!";
     bingoToggle.setAttribute("aria-pressed", String(recapMode));
 
+    updateRecapGroups();
+  }
+
+  function updateRecapGroups() {
     historyEl.querySelectorAll(".hist-group").forEach(function (group) {
       var list = group.querySelector(".hist-list");
       group.hidden = recapMode && list.children.length === 0;
@@ -127,7 +136,7 @@
     called.splice(calledIndex, 1);
     numberButton.closest("li").remove();
     updateLedger();
-    setRecapMode(recapMode);
+    updateRecapGroups();
 
     if (Number(ball.querySelector(".ball-number").textContent) === n) {
       var latestCalled = called[called.length - 1];
