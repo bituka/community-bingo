@@ -123,6 +123,31 @@ h3, h1 {
   .controls, .history { flex-basis: 100%; }
 }
 
+/* Wide desktop: called-numbers panel becomes a column left of the machine */
+@media (min-width: 1100px) {
+  .history {
+    order: -1;
+    flex: 0 1 250px;
+    min-width: 200px;
+    align-self: stretch;
+    border-top: none;
+    border-right: 1px dashed rgba(244, 236, 216, 0.2);
+    padding-top: 0;
+    padding-right: 1.25rem;
+  }
+  .history-title { font-size: clamp(1rem, 2.2vmin, 1.4rem); }
+  .history .history-groups { grid-template-columns: 1fr; gap: 0.6rem; }
+  .hist-group { padding: 0.6rem 0.8rem; }
+  .hist-letter { font-size: clamp(1.1rem, 2.4vmin, 1.6rem); }
+  .hist-list li { font-size: clamp(0.85rem, 1.6vmin, 1.4rem); }
+
+  /* trim the ball + panels so all three columns fit beside the machine */
+  .ball-tray { width: clamp(240px, 30vmin, 420px); height: clamp(240px, 30vmin, 420px); }
+  .ball { width: clamp(220px, 28vmin, 380px); height: clamp(220px, 28vmin, 380px); }
+  .card-panel { flex: 0 1 320px; min-width: 270px; }
+  .machine { min-width: 180px; }
+}
+
 .machine {
   background: linear-gradient(180deg, rgba(244, 236, 216, 0.07), rgba(0, 0, 0, 0.14));
   border: 1px solid rgba(244, 236, 216, 0.16);
