@@ -427,6 +427,12 @@ h3, h1 {
   background: #fff;
 }
 
+.hist-number.highlighted {
+  background: var(--amber);
+  color: var(--ink);
+  box-shadow: 0 0 0 3px var(--cream), 0 6px 18px rgba(232, 161, 60, 0.55);
+}
+
 .hist-number:focus-visible {
   outline: 3px solid var(--cream);
   outline-offset: 2px;

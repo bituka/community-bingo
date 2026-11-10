@@ -83,7 +83,7 @@
       numberButton.className = "hist-number";
       numberButton.textContent = n;
       numberButton.dataset.number = n;
-      numberButton.setAttribute("aria-label", "Remove " + letter + " " + n + " from called numbers");
+      updateHistoryButton(numberButton);
       li.appendChild(numberButton);
       groupList.appendChild(li);
     }
@@ -127,7 +127,22 @@
     bingoToggle.textContent = recapMode ? "Back to game" : "Bingo!";
     bingoToggle.setAttribute("aria-pressed", String(recapMode));
 
+    historyEl.querySelectorAll(".hist-number").forEach(updateHistoryButton);
     updateRecapGroups();
+  }
+
+  function updateHistoryButton(button) {
+    var n = Number(button.dataset.number);
+    var letter = getLetterFromNumber(n);
+    var highlighted = button.classList.contains("highlighted");
+
+    if (recapMode) {
+      button.setAttribute("aria-label", (highlighted ? "Unhighlight " : "Highlight ") + letter + " " + n);
+      button.setAttribute("aria-pressed", String(highlighted));
+    } else {
+      button.setAttribute("aria-label", "Remove " + letter + " " + n + " from called numbers");
+      button.removeAttribute("aria-pressed");
+    }
   }
 
   function updateRecapGroups() {
@@ -140,6 +155,12 @@
   historyEl.addEventListener("click", function (e) {
     var numberButton = e.target.closest(".hist-number");
     if (!numberButton) return;
+
+    if (recapMode) {
+      numberButton.classList.toggle("highlighted");
+      updateHistoryButton(numberButton);
+      return;
+    }
 
     var n = Number(numberButton.dataset.number);
     var calledIndex = called.indexOf(n);
