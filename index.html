@@ -43,6 +43,18 @@
       <div class="callout" id="callout">Enter a ball number (1-75) to start</div>
     </div>
 
+    <section class="card-panel" aria-label="Game pattern card">
+      <h2 class="card-title">Game pattern</h2>
+      <p class="card-hint">Tap cells to mark the winning pattern for this game</p>
+      <div class="card-head">
+        <span>B</span><span>I</span><span>N</span><span>G</span><span>O</span>
+      </div>
+      <div class="card-grid" id="cardGrid"></div>
+      <div class="card-actions">
+        <button class="btn btn-ghost" id="clearPatternBtn">Clear pattern</button>
+      </div>
+    </section>
+
     <div class="controls">
       <button class="btn btn-ghost" id="resetBtn">New game</button>
       <div class="manual-input" style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.5rem;">
@@ -62,18 +74,6 @@
         <div class="hist-group" data-letter="G"><span class="hist-letter">G</span><ol class="hist-list"></ol></div>
         <div class="hist-group" data-letter="O"><span class="hist-letter">O</span><ol class="hist-list"></ol></div>
       </div>
-    </div>
-  </section>
-
-  <section class="card-panel" aria-label="Game pattern card">
-    <h2 class="card-title">Game pattern</h2>
-    <p class="card-hint">Tap cells to mark the winning pattern for this game</p>
-    <div class="card-head">
-      <span>B</span><span>I</span><span>N</span><span>G</span><span>O</span>
-    </div>
-    <div class="card-grid" id="cardGrid"></div>
-    <div class="card-actions">
-      <button class="btn btn-ghost" id="clearPatternBtn">Clear pattern</button>
     </div>
   </section>
 

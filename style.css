@@ -114,6 +114,12 @@ h3, h1 {
 @media (min-width: 768px) {
   .stage { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
   .machine { width: auto; flex: 1 1 0; min-width: 0; }
+  .card-panel {
+    flex: 0 1 350px;
+    min-width: 280px;
+    width: auto;
+    align-self: stretch;
+  }
   .controls, .history { flex-basis: 100%; }
 }
 
