@@ -16,6 +16,9 @@
   var drawCount = document.getElementById("drawCount");
   var statusMsg = document.getElementById("statusMsg");
   var bingoToggle = document.getElementById("bingoToggle");
+  var inputErrorModal = document.getElementById("inputErrorModal");
+  var inputErrorMessage = document.getElementById("inputErrorMessage");
+  var closeInputErrorBtn = document.getElementById("closeInputError");
   var communityNameEl = document.getElementById("communityName");
   var editCommunityNameBtn = document.getElementById("editCommunityName");
   var communityNameForm = document.getElementById("communityNameForm");
@@ -102,6 +105,13 @@
     } else if (!called.length) {
       statusMsg.textContent = "Enter a ball number (1-75)";
     }
+  }
+
+  function showInputError(message, input) {
+    inputErrorMessage.textContent = message;
+    input.value = "";
+    inputErrorModal.showModal();
+    closeInputErrorBtn.focus();
   }
 
   function setRecapMode(enabled) {
@@ -193,18 +203,14 @@
       if (letter) {
         var expectedLetter = getLetterFromNumber(n);
         if (letter !== expectedLetter) {
-          alert("Number " + n + " is in the " + expectedLetter + " range, not " + letter);
-          input.value = "";
-          input.focus();
+          showInputError("Number " + n + " is in the " + expectedLetter + " range, not " + letter, input);
           return;
         }
       }
       addCalledBall(n);
       statusMsg.textContent = called.length + " of " + TOTAL + " drawn";
     } else {
-      alert("Please enter a valid ball number (1-75), e.g., '52' or 'G-52'");
-      input.value = "";
-      input.focus();
+      showInputError("Please enter a valid ball number (1-75), e.g., '52' or 'G-52'", input);
     }
   }
 
@@ -222,6 +228,13 @@
   }
 
   resetBtn.addEventListener("click", newGame);
+  closeInputErrorBtn.addEventListener("click", function () {
+    inputErrorModal.close();
+  });
+  inputErrorModal.addEventListener("close", function () {
+    document.getElementById("ballNumberInput").focus();
+  });
+
   bingoToggle.addEventListener("click", function () {
     setRecapMode(!recapMode);
   });

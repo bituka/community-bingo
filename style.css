@@ -643,6 +643,37 @@ h3, h1 {
   outline-offset: 3px;
 }
 
+.input-error-modal {
+  width: min(28rem, calc(100% - 2rem));
+  margin: auto;
+  padding: 1.5rem;
+  border: 1px solid rgba(244, 236, 216, 0.25);
+  border-radius: 18px;
+  background: var(--felt-deep);
+  color: var(--cream);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+.input-error-modal::backdrop {
+  background: rgba(0, 0, 0, 0.68);
+  backdrop-filter: blur(3px);
+}
+
+.input-error-modal h2 {
+  margin-bottom: 0.6rem;
+  font-family: "Bungee", sans-serif;
+  font-size: 1.1rem;
+}
+
+.input-error-modal p {
+  line-height: 1.5;
+}
+
+.input-error-modal button {
+  display: block;
+  margin: 1.2rem 0 0 auto;
+}
+
 .recap-mode .marquee,
 .recap-mode .machine,
 .recap-mode .card-panel,
