@@ -180,7 +180,7 @@ h3, h1 {
   .history .history-groups { grid-template-columns: 1fr; gap: 0.6rem; }
   .hist-group { padding: 0.6rem 0.8rem; }
   .hist-letter { font-size: clamp(1.1rem, 2.4vmin, 1.6rem); }
-  .hist-number { font-size: clamp(0.85rem, 1.6vmin, 1.4rem); }
+  .hist-number { font-size: clamp(1.7rem, 3.2vmin, 2.8rem); }
 
   /* trim the ball + panels so all three columns fit beside the machine */
   .ball-tray { width: clamp(240px, 30vmin, 420px); height: clamp(240px, 30vmin, 420px); }
@@ -416,7 +416,7 @@ h3, h1 {
   color: #14532d;
   font-family: "Space Mono", monospace;
   font-weight: 700;
-  font-size: clamp(0.9rem, 2.2vmin, 2rem);
+  font-size: clamp(1.8rem, 4.4vmin, 4rem);
   line-height: 1.4;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
   animation: popSmall 0.35s cubic-bezier(0.22, 1.2, 0.35, 1) both;
